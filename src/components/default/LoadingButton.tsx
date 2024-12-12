@@ -10,7 +10,7 @@ interface Props extends ButtonProps {
     children: ReactNode;
 }
 
-export function LoadingButton({ loading = false, red = false, sx, children, disabled, variant, ...rest }: Props) {
+export function LoadingButton({loading, red = false, sx, children, disabled, variant, ...rest }: Props) {
     const theme = useTheme();
 
     return (

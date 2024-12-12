@@ -20,7 +20,8 @@ export default function LoginPage() {
     }, [user]);
 
     const onLogin = async (data: LoginFormData, callback: () => void) => {
-        await login(data.email, data.password);
+        console.log("TEST")
+        login(data.email, data.password);
         callback();
     };
 

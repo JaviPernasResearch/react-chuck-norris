@@ -1,5 +1,6 @@
 import { Box, Divider, Paper, Typography } from "@mui/material";
 import { PropsWithChildren } from "react";
+import Image from "next/image";
 
 interface AuthPaperProps extends PropsWithChildren {
     title: string;
@@ -31,7 +32,7 @@ export const AuthPaper: React.FC<AuthPaperProps> = ({
                     marginY: 2,
                 }}
             >
-                <img src="chuck.png" height={160} />
+                <Image src={"/chuck.png"} height={121} width={200} alt={"Chuck-Norris Image"} draggable={false} className={"h-auto w-auto"}/>
                 <Box
                     sx={{
                         marginTop: 2,

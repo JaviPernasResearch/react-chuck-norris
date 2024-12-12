@@ -60,7 +60,7 @@ export const LoginForm: React.FC<LoginFormProps> = (props) => {
         >
             {({ handleSubmit }) => {
                 return (
-                    <Form onSubmit={handleSubmit}>
+                    <Form onSubmit={handleSubmit} placeholder={undefined}>
                         <Box
                             sx={{
                                 display: "flex",
