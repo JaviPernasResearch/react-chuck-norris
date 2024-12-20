@@ -3,10 +3,8 @@ import {Box, Button, Paper, Skeleton, Typography} from "@mui/material";
 import {useQuery} from "@tanstack/react-query";
 import {getRandomJoke} from "@/utils/jokesApi";
 
-interface RandomJokeProps {
-}
 
-export const RandomJoke: React.FC<RandomJokeProps> = ({}) => {
+export const RandomJoke: React.FC = ({}) => {
     const {isLoading, data, refetch} = useQuery({
         ...getRandomJoke(),
         refetchOnMount: false,

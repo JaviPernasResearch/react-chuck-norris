@@ -13,9 +13,7 @@ const _getRandomJoke = () => {
         });
 };
 
-export const getRandomJoke = (): QueryData<
-    AxiosResponse<ChuckNorrisJoke, any>
-> => ({
+export const getRandomJoke = (): QueryData<AxiosResponse<ChuckNorrisJoke, unknown>> => ({
     queryKey: ["randomJoke"],
     queryFn: () => _getRandomJoke(),
 });

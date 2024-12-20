@@ -4,19 +4,18 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import {Box, IconButton} from "@mui/material";
 import {MaterialReactTable, MRT_ColumnDef} from "material-react-table";
 import {useMemo} from "react";
-import {useRecoilState} from "recoil";
+import {useAtom} from "jotai";
 import {colorsState} from "@/state/colorsState";
 import {RandomColor} from "@/models/randomColor";
 
-interface ColorListProps {
-}
 
-export const ColorTable: React.FC<ColorListProps> = ({}) => {
-    const [colorList, setColorList] = useRecoilState(colorsState);
+export const ColorTable: React.FC = () => {
+    const [colorList, setColorList] = useAtom(colorsState);
 
     const onRemoveColor = (hex: string) => () => {
-        console.log(colorList.filter((c) => c.hex !== hex));
-        setColorList(colorList.filter((c) => c.hex !== hex));
+        const updatedColors = colorList.filter((c) => c.hex !== hex);
+        console.log(updatedColors);
+        setColorList(updatedColors);
     };
 
     const columns = useMemo<MRT_ColumnDef<RandomColor>[]>(
@@ -38,14 +37,12 @@ export const ColorTable: React.FC<ColorListProps> = ({}) => {
                     />
                 ),
             },
-
             {
                 id: "hexAsString",
                 accessorKey: "hex",
                 header: "HEX",
                 size: 150,
             },
-
             {
                 id: "remove",
                 accessorKey: "hex",

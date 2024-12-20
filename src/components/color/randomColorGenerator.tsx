@@ -4,12 +4,12 @@ import AutorenewIcon from "@mui/icons-material/Autorenew";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import {Box, Button, Paper, Typography} from "@mui/material";
 import {useState} from "react";
-import {useRecoilState} from "recoil";
+import {useAtom} from "jotai";
 import {colorsState} from "@/state/colorsState";
 
 export const RandomColorGenerator: React.FC = () => {
     const [currentColor, setCurrentColor] = useState(getRandomColor());
-    const [colorList, setColorList] = useRecoilState(colorsState);
+    const [colorList, setColorList] = useAtom(colorsState);
 
     const onNewRandomColor = () => {
         setCurrentColor(getRandomColor());
@@ -65,9 +65,9 @@ export const RandomColorGenerator: React.FC = () => {
 };
 
 function getRandomColor(): string {
-    var letters = "0123456789ABCDEF";
-    var color = "#";
-    for (var i = 0; i < 6; i++) {
+    const letters = "0123456789ABCDEF";
+    let color = "#";
+    for (let i = 0; i < 6; i++) {
         color += letters[Math.floor(Math.random() * 16)];
     }
     return color;

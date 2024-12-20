@@ -1,3 +1,5 @@
+"use client";
+
 import {
     createUserWithEmailAndPassword,
     onAuthStateChanged,
@@ -5,43 +7,44 @@ import {
     signInWithEmailAndPassword,
     signOut,
 } from "firebase/auth";
-import { createContext, useContext, useEffect, useState } from "react";
-import { toast } from "sonner";
-import { auth } from "@/firebase/firebase";
-import { User } from "@/models/user";
+import {createContext, ReactNode, useContext, useEffect, useState} from "react";
+import {toast} from "sonner";
+import {auth} from "@/firebase/firebase";
+import {User} from "@/models/user";
+import {FirebaseError} from "firebase/app";
 
-const AuthContext = createContext<{
+interface AuthContextType {
     user: User | null;
-    login: (email: string, password: string) => void;
-    logout: () => void;
-    passwordReset: (email: string) => void;
-    signup: (email: string, password: string) => void;
-}>({
+    login: (email: string, password: string) => Promise<void>;
+    logout: () => Promise<void>;
+    passwordReset: (email: string) => Promise<void>;
+    signup: (email: string, password: string) => Promise<void>;
+}
+
+const AuthContext = createContext<AuthContextType>({
     user: null,
-    login: () => {},
-    logout: () => {},
-    passwordReset: () => {},
-    signup: () => {},
+    login: async () => {
+    },
+    logout: async () => {
+    },
+    passwordReset: async () => {
+    },
+    signup: async () => {
+    },
 });
 
 export const useAuth = () => useContext(AuthContext);
 
-// Good Tutorial for AuthContextProvider: https://www.youtube.com/watch?v=ZmpO65DhRN0&ab_channel=SairajChouhan
-
-export const AuthContextProvider = ({
-                                        children,
-                                    }: {
-    children: React.ReactNode;
-}) => {
+export const AuthContextProvider = ({children}: { children: ReactNode }) => {
     const [user, setUser] = useState<User | null>(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
-            if (user) {
+        const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
+            if (firebaseUser) {
                 setUser({
-                    uid: user.uid,
-                    email: user.email ?? "",
+                    uid: firebaseUser.uid,
+                    email: firebaseUser.email ?? "",
                 });
             } else {
                 setUser(null);
@@ -51,32 +54,40 @@ export const AuthContextProvider = ({
         return unsubscribe;
     }, []);
 
-    async function login(email: string, password: string) {
+    const login = async (email: string, password: string) => {
         try {
             await signInWithEmailAndPassword(auth, email, password);
-        } catch (error: any) {
-            switch (error.code) {
-                case "auth/wrong-password":
-                    toast.error("Wrong Credentials");
-                    break;
-                case "auth/user-not-found":
-                    toast.error("Wrong Credentials");
-                    break;
-                case "auth/invalid-email":
-                    toast.error("Not an Email");
-                    break;
-                default:
-                    toast.error("Login was not successful");
+        } catch (error) {
+            if (error instanceof FirebaseError) {
+                switch (error.code) {
+                    case "auth/wrong-password":
+                        toast.error("Wrong Credentials");
+                        break;
+                    case "auth/user-not-found":
+                        toast.error("Wrong Credentials");
+                        break;
+                    case "auth/invalid-email":
+                        toast.error("Not an Email");
+                        break;
+                    default:
+                        toast.error("Login was not successful");
+                }
+            } else {
+                toast.error("An unexpected error occurred");
             }
         }
-    }
+    };
 
     const logout = async () => {
         try {
             await signOut(auth);
             setUser(null);
         } catch (error) {
-            toast.error("Logout was not successful");
+            if (error instanceof FirebaseError) {
+                toast.error("Logout was not successful");
+            } else {
+                toast.error("An unexpected error occurred");
+            }
             console.error(error);
         }
     };
@@ -86,7 +97,11 @@ export const AuthContextProvider = ({
             await sendPasswordResetEmail(auth, email);
             toast.success("Password Reset Email was sent");
         } catch (error) {
-            toast.error("Password Reset Email was not sent");
+            if (error instanceof FirebaseError) {
+                toast.error("Password Reset Email was not sent");
+            } else {
+                toast.error("An unexpected error occurred");
+            }
             console.error(error);
         }
     };
@@ -95,18 +110,20 @@ export const AuthContextProvider = ({
         try {
             await createUserWithEmailAndPassword(auth, email, password);
             toast.success("Signup was successful");
-        } catch (e: any) {
-            console.error(e);
-            const errorMessage = e.message ? ` (${e.message})` : "";
-            toast.error(`Error while signup${errorMessage}`);
+        } catch (error) {
+            if (error instanceof FirebaseError) {
+                const errorMessage = error.message ? ` (${error.message})` : "";
+                toast.error(`Error while signup${errorMessage}`);
+            } else {
+                toast.error("An unexpected error occurred");
+            }
+            console.error(error);
         }
     };
 
     return (
-        <AuthContext.Provider
-            value={{ user, login, logout, passwordReset, signup }}
->
-    {loading ? null : children}
-    </AuthContext.Provider>
-);
+        <AuthContext.Provider value={{user, login, logout, passwordReset, signup}}>
+            {loading ? null : children}
+        </AuthContext.Provider>
+    );
 };

@@ -1,14 +1,13 @@
-"use client"
+"use client";
 
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import { Box } from "@mui/material";
-import { Form, Formik } from "formik";
+import {Box} from "@mui/material";
+import {Form, Formik} from "formik";
 import Link from "next/link";
-import { useState } from "react";
-import * as yup from "yup";
+import {useState} from "react";
+import {z} from "zod";
 import {FormikTextField} from "@/components/formikInputs/FormikTextField";
 import {LoadingButton} from "@/components/default/LoadingButton";
-import {ValidationMessages} from "@/components/formikInputs/ValidationMessages";
 
 interface LoginFormProps {
     onSubmit: (data: LoginFormData, callback: () => void) => void;
@@ -19,17 +18,20 @@ export interface LoginFormData {
     password: string;
 }
 
+// Define the Zod schema
+const loginSchema = z.object({
+    email: z.string()
+        .nonempty("This field is required")
+        .email("Invalid email address"),
+    password: z.string()
+        .nonempty("This field is required"),
+});
+
+// TypeScript type based on the schema
 export const LoginForm: React.FC<LoginFormProps> = (props) => {
     const [loading, setLoading] = useState(false);
     const [emailForReset, setEmailForReset] = useState("");
 
-    const validationSchema: yup.ObjectSchema<LoginFormData> = yup.object({
-        email: yup
-            .string()
-            .email(ValidationMessages.NOT_A_EMAIL)
-            .required(ValidationMessages.REQUIRED),
-        password: yup.string().required(ValidationMessages.REQUIRED),
-    });
     const initialValues: LoginFormData = {
         email: "",
         password: "",
@@ -40,7 +42,7 @@ export const LoginForm: React.FC<LoginFormProps> = (props) => {
         setEmailForReset(value);
     };
 
-    const onSubmit = (data: LoginFormData, resetForm: () => void) => {
+    const onSubmit = (data: LoginFormData) => {
         setLoading(true);
 
         setEmailForReset(data.email);
@@ -50,70 +52,88 @@ export const LoginForm: React.FC<LoginFormProps> = (props) => {
         });
     };
 
+    // Define the validation function
+    const validate = (values: LoginFormData) => {
+        try {
+            loginSchema.parse(values);
+            return {}; // No errors
+        } catch (err) {
+            const errors: Partial<LoginFormData> = {};
+            if (err instanceof z.ZodError) {
+                err.errors.forEach((error) => {
+                    const field = error.path[0];
+                    if (field && typeof field === "string") {
+                        errors[field as keyof LoginFormData] = error.message;
+                    }
+                });
+            }
+            return errors;
+        }
+    };
+
     return (
         <Formik<LoginFormData>
             initialValues={initialValues}
-            validationSchema={validationSchema}
-            onSubmit={(e, { resetForm }) => {
-                onSubmit(e, resetForm);
+            validate={validate}
+            onSubmit={(values) => {
+                onSubmit(values);
             }}
         >
-            {({ handleSubmit }) => {
-                return (
-                    <Form onSubmit={handleSubmit} placeholder={undefined}>
+            {({handleSubmit}) => (
+                <Form onSubmit={handleSubmit} placeholder={undefined} onPointerEnterCapture={undefined}
+                      onPointerLeaveCapture={undefined}>
+                    <Box
+                        sx={{
+                            display: "flex",
+                            flexDirection: "column",
+                            maxWidth: "400px",
+                        }}
+                    >
+                        <FormikTextField
+                            name="email"
+                            type="email"
+                            label="Enter your email"
+                            onChange={handleEmailChange}
+                        />
+                        <FormikTextField
+                            name="password"
+                            type="password"
+                            label="Enter your password"
+                            sx={{
+                                marginTop: 2,
+                            }}
+                        />
                         <Box
                             sx={{
                                 display: "flex",
-                                flexDirection: "column",
-                                maxWidth: "400px",
+                                flexDirection: "row-reverse",
+                                marginTop: 0.5,
                             }}
                         >
-                            <FormikTextField
-                                name="email"
-                                type="email"
-                                label="Enter your email"
-                                onChange={handleEmailChange}
-                            />
-                            <FormikTextField
-                                name="password"
-                                type="password"
-                                label="Enter your password"
-                                sx={{
-                                    marginTop: 2,
-                                }}
-                            />
-                            <Box
-                                sx={{
-                                    display: "flex",
-                                    flexDirection: "row-reverse",
-                                    marginTop: 0.5,
+                            <Link
+                                href={{
+                                    pathname: "/password-reset",
+                                    query: emailForReset ? {email: emailForReset} : {},
                                 }}
                             >
-                                <Link
-                                    href={{
-                                        pathname: "/password-reset",
-                                        query: emailForReset ? { email: emailForReset } : {},
-                                    }}
-                                >
-                                    {"Reset Password"}
-                                </Link>
-                            </Box>
-                            <LoadingButton
-                                variant="contained"
-                                type="submit"
-                                endIcon={<ArrowForwardIcon />}
-                                loading={loading}
-                                sx={{
-                                    marginTop: 2,
-                                    marginBottom: 1,
-                                }}
-                            >
-                                Login
-                            </LoadingButton>
+                                {"Reset Password"}
+                            </Link>
                         </Box>
-                    </Form>
-                );
-            }}
+                        <LoadingButton
+                            variant="contained"
+                            type="submit"
+                            endIcon={<ArrowForwardIcon/>}
+                            loading={loading}
+                            sx={{
+                                marginTop: 2,
+                                marginBottom: 1,
+                            }}
+                        >
+                            Login
+                        </LoadingButton>
+                    </Box>
+                </Form>
+            )}
         </Formik>
     );
 };
