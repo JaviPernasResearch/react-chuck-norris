@@ -5,20 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1096cef6-b263-4a5c-a481-b5183c639ced" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/app/(project)/colors/page.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/color/colorTable.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/color/randomColorGenerator.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/functionality/RandomJoke.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/models/joke.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/models/queryData.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/models/randomColor.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/colorsState.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/jokesApi.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(project)/home/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(project)/home/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(project)/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(project)/layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/default/Navbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/default/Navbar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -139,7 +127,7 @@
       <workItem from="1733412779736" duration="2114000" />
       <workItem from="1733415200636" duration="1099000" />
       <workItem from="1733921098262" duration="4104000" />
-      <workItem from="1734700454747" duration="3333000" />
+      <workItem from="1734700454747" duration="4106000" />
     </task>
     <servers />
   </component>
