@@ -5,10 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1096cef6-b263-4a5c-a481-b5183c639ced" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/app/(project)/home/page.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/default/Navbar.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/(project)/colors/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/color/colorTable.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/color/randomColorGenerator.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/functionality/RandomJoke.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/models/joke.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/models/queryData.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/models/randomColor.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/state/colorsState.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utils/jokesApi.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(project)/home/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(project)/home/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(project)/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(project)/layout.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/default/Navbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/default/Navbar.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,8 +33,17 @@
       </list>
     </option>
   </component>
+  <component name="FormatOnSaveOptions">
+    <option name="myAllFileTypesSelected" value="true" />
+    <option name="mySelectedFileTypes">
+      <set />
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="OptimizeOnSaveOptions">
+    <option name="myRunOnSave" value="true" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
@@ -41,6 +60,8 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "code.cleanup.on.save": "true",
     "git-widget-placeholder": "new-version",
     "ignore.virus.scanning.warn.message": "true",
     "last_opened_file_path": "C:/Users/AaronDriesch/Desktop/Dev/react-chuck-norris/src/app/(project)",
@@ -52,8 +73,9 @@
     "nodejs_package_manager_path": "npm",
     "npm.build.executor": "Run",
     "npm.dev.executor": "Run",
-    "settings.editor.selected.configurable": "editing.templates",
-    "ts.external.directory.path": "C:\\Users\\AaronDriesch\\Desktop\\Dev\\react-chuck-norris\\node_modules\\typescript\\lib",
+    "rearrange.code.on.save": "true",
+    "settings.editor.selected.configurable": "preferences.general",
+    "ts.external.directory.path": "/Users/aaron/dev/InnFactory/react-chuck-norris/node_modules/typescript/lib",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -102,7 +124,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-WS-242.24807.6" />
+        <option value="bundled-js-predefined-d6986cc7102b-deb605915726-JavaScript-WS-243.22562.112" />
       </set>
     </attachedChunks>
   </component>
@@ -117,6 +139,7 @@
       <workItem from="1733412779736" duration="2114000" />
       <workItem from="1733415200636" duration="1099000" />
       <workItem from="1733921098262" duration="4104000" />
+      <workItem from="1734700454747" duration="3333000" />
     </task>
     <servers />
   </component>

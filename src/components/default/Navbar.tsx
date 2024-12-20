@@ -1,3 +1,5 @@
+"use client"
+
 import AdbIcon from "@mui/icons-material/Adb";
 import MenuIcon from "@mui/icons-material/Menu";
 import AppBar from "@mui/material/AppBar";
@@ -11,9 +13,9 @@ import MenuItem from "@mui/material/MenuItem";
 import Toolbar from "@mui/material/Toolbar";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
-import { useRouter } from "next/router";
+import {useRouter} from "next/navigation";
 import * as React from "react";
-import { useAuth } from "@/context/AuthContext";
+import {useAuth} from "@/context/AuthContext";
 
 interface Page {
     title: string;
@@ -21,12 +23,12 @@ interface Page {
 }
 
 const pages: Page[] = [
-    { title: "Home", route: "/home" },
-    { title: "Colors", route: "/colors" },
+    {title: "Home", route: "/home"},
+    {title: "Colors", route: "/colors"},
 ];
 
 function ChucksAppBar() {
-    const { logout, user } = useAuth();
+    const {logout, user} = useAuth();
     const router = useRouter();
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
         null
@@ -60,7 +62,7 @@ function ChucksAppBar() {
         <AppBar position="static">
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
-                    <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+                    <AdbIcon sx={{display: {xs: "none", md: "flex"}, mr: 1}}/>
                     <Typography
                         variant="h6"
                         noWrap
@@ -68,7 +70,7 @@ function ChucksAppBar() {
                         href="/"
                         sx={{
                             mr: 2,
-                            display: { xs: "none", md: "flex" },
+                            display: {xs: "none", md: "flex"},
                             fontFamily: "monospace",
                             fontWeight: 700,
                             letterSpacing: ".3rem",
@@ -79,7 +81,7 @@ function ChucksAppBar() {
                         CNC
                     </Typography>
 
-                    <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+                    <Box sx={{flexGrow: 1, display: {xs: "flex", md: "none"}}}>
                         <IconButton
                             size="large"
                             aria-label="account of current user"
@@ -88,7 +90,7 @@ function ChucksAppBar() {
                             onClick={handleOpenNavMenu}
                             color="inherit"
                         >
-                            <MenuIcon />
+                            <MenuIcon/>
                         </IconButton>
                         <Menu
                             id="menu-appbar"
@@ -105,7 +107,7 @@ function ChucksAppBar() {
                             open={Boolean(anchorElNav)}
                             onClose={onPageNavClick}
                             sx={{
-                                display: { xs: "block", md: "none" },
+                                display: {xs: "block", md: "none"},
                             }}
                         >
                             {pages.map((page) => (
@@ -115,7 +117,7 @@ function ChucksAppBar() {
                             ))}
                         </Menu>
                     </Box>
-                    <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
+                    <AdbIcon sx={{display: {xs: "flex", md: "none"}, mr: 1}}/>
                     <Typography
                         variant="h5"
                         noWrap
@@ -123,7 +125,7 @@ function ChucksAppBar() {
                         href=""
                         sx={{
                             mr: 2,
-                            display: { xs: "flex", md: "none" },
+                            display: {xs: "flex", md: "none"},
                             flexGrow: 1,
                             fontFamily: "monospace",
                             fontWeight: 700,
@@ -134,26 +136,26 @@ function ChucksAppBar() {
                     >
                         LOGO
                     </Typography>
-                    <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+                    <Box sx={{flexGrow: 1, display: {xs: "none", md: "flex"}}}>
                         {pages.map((page) => (
                             <Button
                                 key={page.route}
                                 onClick={onPageNavClick(page)}
-                                sx={{ my: 2, color: "white", display: "block" }}
+                                sx={{my: 2, color: "white", display: "block"}}
                             >
                                 {page.title}
                             </Button>
                         ))}
                     </Box>
 
-                    <Box sx={{ flexGrow: 0 }}>
+                    <Box sx={{flexGrow: 0}}>
                         <Tooltip title={user?.email}>
-                            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <Avatar />
+                            <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
+                                <Avatar/>
                             </IconButton>
                         </Tooltip>
                         <Menu
-                            sx={{ mt: "45px" }}
+                            sx={{mt: "45px"}}
                             id="menu-appbar"
                             anchorEl={anchorElUser}
                             anchorOrigin={{
@@ -178,4 +180,5 @@ function ChucksAppBar() {
         </AppBar>
     );
 }
+
 export default ChucksAppBar;
