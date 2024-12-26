@@ -1,66 +1,69 @@
 "use client";
 
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import {Box} from "@mui/material";
 import {Form, Formik} from "formik";
-import Link from "next/link";
 import {useState} from "react";
 import {z} from "zod";
 import {FormikTextField} from "@/components/formikInputs/FormikTextField";
 import {LoadingButton} from "@/components/default/LoadingButton";
 
-interface LoginFormProps {
-    onSubmit: (data: LoginFormData, callback: () => void) => void;
+interface SignupFormProps {
+    onSubmit: (data: SignupFormData, callback: () => void) => void;
 }
 
-export interface LoginFormData {
+export interface SignupFormData {
     email: string;
     password: string;
+    passwordConfirmation: string;
 }
 
-const loginSchema = z.object({
+const signupSchema = z.object({
     email: z.string()
         .nonempty("This field is required")
         .email("Invalid email address"),
     password: z.string()
-        .nonempty("This field is required"),
+        .nonempty("This field is required")
+        .regex(
+            /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{10,}$/,
+            "Password must contain at least one uppercase letter, one lowercase letter, and one number, and be at least 10 characters long"
+        ),
+    passwordConfirmation: z.string()
+        .nonempty("This field is required")
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        //@ts-ignore
+        .refine((val, ctx) => val === ctx.parent.password, {
+            message: "Passwords do not match",
+        }),
 });
 
-export const LoginForm: React.FC<LoginFormProps> = (props) => {
+export const SignupForm: React.FC<SignupFormProps> = (props) => {
     const [loading, setLoading] = useState(false);
-    const [emailForReset, setEmailForReset] = useState("");
 
-    const initialValues: LoginFormData = {
+    const initialValues: SignupFormData = {
         email: "",
         password: "",
+        passwordConfirmation: "",
     };
 
-    const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const value = e.target.value;
-        setEmailForReset(value);
-    };
-
-    const onSubmit = (data: LoginFormData) => {
+    const onSubmit = (data: SignupFormData) => {
         setLoading(true);
-
-        setEmailForReset(data.email);
-
         props.onSubmit(data, () => {
             setLoading(false);
         });
     };
 
-    const validate = (values: LoginFormData) => {
+    const validate = (values: SignupFormData) => {
         try {
-            loginSchema.parse(values);
+            signupSchema.parse(values);
             return {};
         } catch (err) {
-            const errors: Partial<LoginFormData> = {};
+            const errors: Partial<SignupFormData> = {};
             if (err instanceof z.ZodError) {
                 err.errors.forEach((error) => {
                     const field = error.path[0];
                     if (field && typeof field === "string") {
-                        errors[field as keyof LoginFormData] = error.message;
+                        errors[field as keyof SignupFormData] = error.message;
                     }
                 });
             }
@@ -69,7 +72,7 @@ export const LoginForm: React.FC<LoginFormProps> = (props) => {
     };
 
     return (
-        <Formik<LoginFormData>
+        <Formik<SignupFormData>
             initialValues={initialValues}
             validate={validate}
             onSubmit={(values) => {
@@ -90,7 +93,6 @@ export const LoginForm: React.FC<LoginFormProps> = (props) => {
                             name="email"
                             type="email"
                             label="Enter your email"
-                            onChange={handleEmailChange}
                         />
                         <FormikTextField
                             name="password"
@@ -100,33 +102,25 @@ export const LoginForm: React.FC<LoginFormProps> = (props) => {
                                 marginTop: 2,
                             }}
                         />
-                        <Box
+                        <FormikTextField
+                            name="passwordConfirmation"
+                            type="password"
+                            label="Confirm your password"
                             sx={{
-                                display: "flex",
-                                flexDirection: "row-reverse",
-                                marginTop: 0.5,
+                                marginTop: 2,
                             }}
-                        >
-                            <Link
-                                href={{
-                                    pathname: "/password-reset",
-                                    query: emailForReset ? {email: emailForReset} : {},
-                                }}
-                            >
-                                {"Reset Password"}
-                            </Link>
-                        </Box>
+                        />
                         <LoadingButton
                             variant="contained"
                             type="submit"
-                            endIcon={<ArrowForwardIcon/>}
+                            endIcon={<PersonAddIcon/>}
                             loading={loading}
                             sx={{
                                 marginTop: 2,
                                 marginBottom: 1,
                             }}
                         >
-                            Login
+                            Create account
                         </LoadingButton>
                     </Box>
                 </Form>

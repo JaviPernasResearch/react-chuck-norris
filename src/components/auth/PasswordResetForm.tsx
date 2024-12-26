@@ -1,6 +1,6 @@
 "use client";
 
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import LockResetIcon from "@mui/icons-material/LockReset";
 import {Box} from "@mui/material";
 import {Form, Formik} from "formik";
 import Link from "next/link";
@@ -8,59 +8,50 @@ import {useState} from "react";
 import {z} from "zod";
 import {FormikTextField} from "@/components/formikInputs/FormikTextField";
 import {LoadingButton} from "@/components/default/LoadingButton";
+import {useSearchParams} from "next/navigation";
 
-interface LoginFormProps {
-    onSubmit: (data: LoginFormData, callback: () => void) => void;
+interface PasswordResetFormProps {
+    onSubmit: (data: PasswordResetFormData, callback: () => void) => void;
 }
 
-export interface LoginFormData {
+export interface PasswordResetFormData {
     email: string;
-    password: string;
 }
 
-const loginSchema = z.object({
-    email: z.string()
+const passwordResetSchema = z.object({
+    email: z
+        .string()
         .nonempty("This field is required")
         .email("Invalid email address"),
-    password: z.string()
-        .nonempty("This field is required"),
 });
 
-export const LoginForm: React.FC<LoginFormProps> = (props) => {
+export const PasswordResetForm: React.FC<PasswordResetFormProps> = (props) => {
     const [loading, setLoading] = useState(false);
-    const [emailForReset, setEmailForReset] = useState("");
+    const searchParams = useSearchParams();
 
-    const initialValues: LoginFormData = {
-        email: "",
-        password: "",
+    const initialValues: PasswordResetFormData = {
+        email: searchParams.get("email") || "",
     };
 
-    const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const value = e.target.value;
-        setEmailForReset(value);
-    };
-
-    const onSubmit = (data: LoginFormData) => {
+    const onSubmit = (data: PasswordResetFormData, resetForm: () => void) => {
         setLoading(true);
-
-        setEmailForReset(data.email);
-
         props.onSubmit(data, () => {
             setLoading(false);
+            resetForm();
         });
     };
 
-    const validate = (values: LoginFormData) => {
+    const validate = (values: PasswordResetFormData) => {
         try {
-            loginSchema.parse(values);
+            passwordResetSchema.parse(values);
             return {};
         } catch (err) {
-            const errors: Partial<LoginFormData> = {};
+            const errors: Partial<PasswordResetFormData> = {};
             if (err instanceof z.ZodError) {
                 err.errors.forEach((error) => {
                     const field = error.path[0];
                     if (field && typeof field === "string") {
-                        errors[field as keyof LoginFormData] = error.message;
+                        errors[field as keyof PasswordResetFormData] = error.message;
                     }
                 });
             }
@@ -69,16 +60,18 @@ export const LoginForm: React.FC<LoginFormProps> = (props) => {
     };
 
     return (
-        <Formik<LoginFormData>
+        <Formik<PasswordResetFormData>
             initialValues={initialValues}
             validate={validate}
-            onSubmit={(values) => {
-                onSubmit(values);
+            onSubmit={(values, {resetForm}) => {
+                onSubmit(values, resetForm);
             }}
         >
             {({handleSubmit}) => (
-                <Form onSubmit={handleSubmit} placeholder={undefined} onPointerEnterCapture={undefined}
-                      onPointerLeaveCapture={undefined}>
+                <Form
+                    onSubmit={handleSubmit}
+                    placeholder={undefined} onPointerEnterCapture={undefined}
+                    onPointerLeaveCapture={undefined}>
                     <Box
                         sx={{
                             display: "flex",
@@ -90,15 +83,6 @@ export const LoginForm: React.FC<LoginFormProps> = (props) => {
                             name="email"
                             type="email"
                             label="Enter your email"
-                            onChange={handleEmailChange}
-                        />
-                        <FormikTextField
-                            name="password"
-                            type="password"
-                            label="Enter your password"
-                            sx={{
-                                marginTop: 2,
-                            }}
                         />
                         <Box
                             sx={{
@@ -107,26 +91,19 @@ export const LoginForm: React.FC<LoginFormProps> = (props) => {
                                 marginTop: 0.5,
                             }}
                         >
-                            <Link
-                                href={{
-                                    pathname: "/password-reset",
-                                    query: emailForReset ? {email: emailForReset} : {},
-                                }}
-                            >
-                                {"Reset Password"}
-                            </Link>
+                            <Link href="/">{"Back to login"}</Link>
                         </Box>
                         <LoadingButton
                             variant="contained"
                             type="submit"
-                            endIcon={<ArrowForwardIcon/>}
+                            endIcon={<LockResetIcon/>}
                             loading={loading}
                             sx={{
                                 marginTop: 2,
                                 marginBottom: 1,
                             }}
                         >
-                            Login
+                            Reset
                         </LoadingButton>
                     </Box>
                 </Form>
