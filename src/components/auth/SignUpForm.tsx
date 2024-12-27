@@ -29,13 +29,9 @@ const signupSchema = z.object({
             "Password must contain at least one uppercase letter, one lowercase letter, and one number, and be at least 10 characters long"
         ),
     passwordConfirmation: z.string()
-        .nonempty("This field is required")
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        //@ts-ignore
-        .refine((val, ctx) => val === ctx.parent.password, {
-            message: "Passwords do not match",
-        }),
+        .nonempty("This field is required"),
 });
+
 
 export const SignupForm: React.FC<SignupFormProps> = (props) => {
     const [loading, setLoading] = useState(false);
@@ -54,11 +50,11 @@ export const SignupForm: React.FC<SignupFormProps> = (props) => {
     };
 
     const validate = (values: SignupFormData) => {
+        const errors: Partial<SignupFormData> = {};
+
         try {
             signupSchema.parse(values);
-            return {};
         } catch (err) {
-            const errors: Partial<SignupFormData> = {};
             if (err instanceof z.ZodError) {
                 err.errors.forEach((error) => {
                     const field = error.path[0];
@@ -67,8 +63,13 @@ export const SignupForm: React.FC<SignupFormProps> = (props) => {
                     }
                 });
             }
-            return errors;
         }
+
+        if (values.password !== values.passwordConfirmation) {
+            errors.passwordConfirmation = "Passwords do not match";
+        }
+
+        return errors;
     };
 
     return (
