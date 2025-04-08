@@ -7,3 +7,8 @@ export interface ChuckNorrisJoke extends Joke {
     id: string;
     url: string;
 }
+
+export interface FavoriteJoke {
+    id: string;
+    value: string;
+}

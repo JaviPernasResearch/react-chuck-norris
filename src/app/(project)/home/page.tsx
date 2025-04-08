@@ -1,4 +1,4 @@
-"use client"
+'use client'
 
 import React, {useEffect} from 'react';
 import {useAuth} from "@/context/AuthContext";
@@ -8,10 +8,13 @@ import ChucksAppBar from "@/components/default/Navbar";
 import {Typography} from "@mui/material";
 import {Box} from "@mui/system";
 import {RandomJoke} from "@/components/functionality/RandomJoke";
+import { useFavorites } from '@/context/FavoritesContext';
+
 
 export default function Page() {
     const {user} = useAuth();
     const router = useRouter();
+    const { isFavorite, addFavorite, removeFavorite } = useFavorites();
 
     useEffect(() => {
         if (!user) {

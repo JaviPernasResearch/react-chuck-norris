@@ -1,19 +1,72 @@
 import AutorenewIcon from "@mui/icons-material/Autorenew";
-import {Box, Button, Paper, Skeleton, Typography} from "@mui/material";
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import {Box, Button, Paper, Skeleton, Typography, IconButton} from "@mui/material";
 import {useQuery} from "@tanstack/react-query";
 import {getRandomJoke} from "@/utils/jokesApi";
+import {useFavorites} from "@/context/FavoritesContext";
+import {ChuckNorrisJoke, FavoriteJoke} from "@/models/joke";
 
 
-export const RandomJoke: React.FC = ({}) => {
+export const RandomJoke: React.FC<{ variant?: '404' }> = ({ variant }) => {
     const {isLoading, data, refetch} = useQuery({
         ...getRandomJoke(),
         refetchOnMount: false,
         refetchOnWindowFocus: false,
     });
 
+    const { isFavorite, addFavorite, removeFavorite } = useFavorites();
+
     const onNewJokeButton = () => {
         refetch();
     };
+
+    const handleFavoriteClick = () => {
+        if (!data?.data) return;
+        
+        const joke: FavoriteJoke = {
+            id: data.data.id,
+            value: data.data.value
+        };
+        
+        if (isFavorite(joke.id)) {
+            removeFavorite(joke.id);
+        } else {
+            addFavorite(joke);
+        }
+    };
+
+    if (variant === '404') {
+        return (
+            <Box>
+                <Paper sx={{padding: 2, maxWidth: 600, margin: 'auto'}}>
+                    {isLoading ? (
+                        <Skeleton sx={{width: "100%"}}/>
+                    ) : (
+                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                            <Typography>{data?.data.value}</Typography>
+                            <IconButton onClick={handleFavoriteClick} color="primary">
+                                {data?.data && isFavorite(data.data.id) ? 
+                                    <FavoriteIcon /> : 
+                                    <FavoriteBorderIcon />
+                                }
+                            </IconButton>
+                        </Box>
+                    )}
+                </Paper>
+                <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
+                    <Button
+                        onClick={onNewJokeButton}
+                        variant="contained"
+                        color="secondary"
+                        endIcon={<AutorenewIcon/>}
+                    >
+                        New Joke
+                    </Button>
+                </Box>
+            </Box>
+        );
+    }
 
     return (
         <Box>
@@ -21,7 +74,15 @@ export const RandomJoke: React.FC = ({}) => {
                 {isLoading ? (
                     <Skeleton sx={{width: "100%"}}/>
                 ) : (
-                    <Typography>{data?.data.value}</Typography>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                        <Typography>{data?.data.value}</Typography>
+                        <IconButton onClick={handleFavoriteClick} color="primary">
+                            {data?.data && isFavorite(data.data.id) ? 
+                                <FavoriteIcon /> : 
+                                <FavoriteBorderIcon />
+                            }
+                        </IconButton>
+                    </Box>
                 )}
             </Paper>
             <Box
