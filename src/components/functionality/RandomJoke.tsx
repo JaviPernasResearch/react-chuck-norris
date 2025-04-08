@@ -45,12 +45,6 @@ export const RandomJoke: React.FC<{ variant?: '404' }> = ({ variant }) => {
                     ) : (
                         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
                             <Typography>{data?.data.value}</Typography>
-                            <IconButton onClick={handleFavoriteClick} color="primary">
-                                {data?.data && isFavorite(data.data.id) ? 
-                                    <FavoriteIcon /> : 
-                                    <FavoriteBorderIcon />
-                                }
-                            </IconButton>
                         </Box>
                     )}
                 </Paper>
