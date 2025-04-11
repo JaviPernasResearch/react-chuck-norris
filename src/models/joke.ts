@@ -8,7 +8,6 @@ export interface ChuckNorrisJoke extends Joke {
     url: string;
 }
 
-export interface FavoriteJoke {
+export interface FavoriteJoke extends Joke {
     id: string;
-    value: string;
 }
