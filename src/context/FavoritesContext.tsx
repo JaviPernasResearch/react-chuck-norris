@@ -1,7 +1,7 @@
 'use client'
 
 import { createContext, useContext, useState, useEffect } from 'react';
-import { FavoriteJoke } from '@/models/FavoriteJoke';
+import { FavoriteJoke } from '@/models/joke';
 
 
 interface FavoritesContextType {
@@ -15,6 +15,7 @@ interface FavoritesContextType {
 const FavoritesContext = createContext<FavoritesContextType | undefined>(undefined);
 
 export function FavoritesProvider({ children }: { children: React.ReactNode }) {
+    
     const [favorites, setFavorites] = useState<FavoriteJoke[]>([]);
 
     // Effects hooks let a component connect to and synchronize with external systems
