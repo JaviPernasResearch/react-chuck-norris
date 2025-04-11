@@ -7,7 +7,7 @@ import Container from "@mui/material/Container";
 import ChucksAppBar from "@/components/default/Navbar";
 import {Typography} from "@mui/material";
 import {Box} from "@mui/system";
-import {RandomJoke} from "@/components/functionality/RandomJoke";
+import {RandomJoke} from "@/components/jokes/RandomJokeGenerator";
 
 
 export default function Page() {

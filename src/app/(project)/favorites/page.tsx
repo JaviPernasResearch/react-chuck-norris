@@ -1,56 +1,44 @@
 'use client'
 
-import { Container, Typography, List, ListItem, IconButton, Box } from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
+import { Container, Typography, Tabs, Tab, Box } from '@mui/material';
 import ChucksAppBar from "@/components/default/Navbar";
-import { useAtom } from 'jotai';
-import { favoriteJokesState } from '@/state/favoriteJokesState';
+import { useState } from 'react';
+import { FavoriteJokesList } from '@/components/jokes/FavoriteJokesList';
+import { ColorTable } from '@/components/color/colorTable';
+import { CatPicTable } from '@/components/cats/CatPicTable';
+
+type FavoriteTabType = 'jokes' | 'cats' | 'colors';
 
 export default function FavoritesPage() {
-    const [favoriteJokesList, setfavoriteJokesList] = useAtom(favoriteJokesState);
-    
-    const removeFavorite = (id: string) => {
-        const updatedJokes = favoriteJokesList.filter((joke) => joke.id !== id);
-        setfavoriteJokesList(updatedJokes);
+    const [activeTab, setActiveTab] = useState<FavoriteTabType>('jokes');
+
+    const handleTabChange = (_event: React.SyntheticEvent, newValue: FavoriteTabType) => {
+        setActiveTab(newValue);
     };
 
     return (
         <>
             <ChucksAppBar/>
-            <Container maxWidth="md" sx={{ py: 4 }}>
+            <Container maxWidth="xl" sx={{ py: 4 }}>
                 <Typography variant="h4" component="h1" gutterBottom>
-                    My Favorite Chuck Norris Jokes
+                    My Favorites
                 </Typography>
-                {favoriteJokesList.length === 0 ? (
-                    <Typography color="text.secondary">
-                        No favorite jokes yet. Add some from the home page!
-                    </Typography>
-                ) : (
-                    <List>
-                        {favoriteJokesList.map((joke) => (
-                            <ListItem
-                                key={joke.id}
-                                sx={{
-                                    bgcolor: 'background.paper',
-                                    mb: 2,
-                                    borderRadius: 1,
-                                    boxShadow: 1,
-                                }}
-                                secondaryAction={
-                                    <IconButton 
-                                        edge="end" 
-                                        onClick={() => removeFavorite(joke.id)}
-                                        aria-label="delete"
-                                    >
-                                        <DeleteIcon />
-                                    </IconButton>
-                                }
-                            >
-                                <Typography>{joke.value}</Typography>
-                            </ListItem>
-                        ))}
-                    </List>
-                )}
+                
+                <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: 3 }}>
+                    <Tabs 
+                        value={activeTab} 
+                        onChange={handleTabChange}
+                        aria-label="favorites content tabs"
+                    >
+                        <Tab label="Chuck Norris Jokes" value="jokes" />
+                        <Tab label="Cat Pictures" value="cats" />
+                        <Tab label="Colors" value="colors" />
+                    </Tabs>
+                </Box>
+
+                {activeTab === 'jokes' && <FavoriteJokesList />}
+                {activeTab === 'cats' && <CatPicTable />}
+                {activeTab === 'colors' && <ColorTable />}
             </Container>
         </>
     );

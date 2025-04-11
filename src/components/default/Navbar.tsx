@@ -24,9 +24,9 @@ interface Page {
 
 const pages: Page[] = [
     {title: "Home", route: "/home"},
-    {title: "Favorite Jokes", route: "/favorites"},
     {title: "Colors", route: "/colors"},
     {title: "Cats", route: "/cats"},
+    {title: "Favorites", route: "/favorites"},
 ];
 
 function ChucksAppBar() {

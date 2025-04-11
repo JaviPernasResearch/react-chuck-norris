@@ -5,12 +5,12 @@ import {Box, Button, Paper, Skeleton, Typography, IconButton} from "@mui/materia
 import {useQuery} from "@tanstack/react-query";
 import {getRandomJoke} from "@/utils/jokesApi";
 import {ChuckNorrisJoke, FavoriteJoke} from "@/models/joke";
-import { useFavorites } from "../Favorites/useFavorites";
+import { useFavoriteJokesList } from "./useFavoriteJokes";
 
 
 export const RandomJoke: React.FC<{ variant?: '404' }> = ({ variant }) => {
     
-    const {isFavorite, addFavorite, removeFavorite} = useFavorites();
+    const {isFavorite, addFavorite, removeFavorite} = useFavoriteJokesList();
 
     const {isLoading, data, refetch} = useQuery({
         ...getRandomJoke(),

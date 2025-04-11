@@ -4,7 +4,7 @@ import { Container, Typography, Button, Box } from "@mui/material";
 import Link from "next/link";
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import { BouncingDVD } from "@/components/functionality/BouncingDVDProps";
-import { RandomJoke } from "@/components/functionality/RandomJoke";
+import { RandomJoke } from "@/components/jokes/RandomJokeGenerator";
 
 export default function NotFound() {
   return (

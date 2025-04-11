@@ -3,7 +3,7 @@ import { FavoriteJoke } from "@/models/joke";
 import { useAtom } from "jotai";
 
 
-export const useFavorites = () => {
+export const useFavoriteJokesList = () => {
   const [favoriteJokesList, setfavoriteJokesList] = useAtom(favoriteJokesState);
 
   const addFavorite = (FavoriteJoke: FavoriteJoke) => {

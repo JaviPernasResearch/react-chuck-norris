@@ -3,8 +3,8 @@
 import ChucksAppBar from '@/components/default/Navbar'
 import { Box, Container, Typography } from '@mui/material'
 import React from 'react'
-import {CatPicTable} from '@/components/cats/catPicTable'
-import {RandomCatPicGenerator} from "@/components/cats/randomCatPicGenerator";
+import {CatPicTable} from '@/components/cats/CatPicTable'
+import {RandomCatPicGenerator} from "@/components/cats/RandomCatPicGenerator";
 
 export default function CatsPage() {
   return (
