@@ -8,13 +8,11 @@ import ChucksAppBar from "@/components/default/Navbar";
 import {Typography} from "@mui/material";
 import {Box} from "@mui/system";
 import {RandomJoke} from "@/components/functionality/RandomJoke";
-import { useFavorites } from '@/context/FavoritesContext';
 
 
 export default function Page() {
     const {user} = useAuth();
     const router = useRouter();
-    const { isFavorite, addFavorite, removeFavorite } = useFavorites();
 
     useEffect(() => {
         if (!user) {
