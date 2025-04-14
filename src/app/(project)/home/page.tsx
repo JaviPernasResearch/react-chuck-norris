@@ -8,11 +8,15 @@ import ChucksAppBar from "@/components/default/Navbar";
 import {Typography} from "@mui/material";
 import {Box} from "@mui/system";
 import {RandomJoke} from "@/components/jokes/RandomJokeGenerator";
+import { AddCustomJoke } from '@/components/jokes/AddCustomJoke';
+import { useCustomJokes } from '@/components/jokes/useCustomJokes';
 
 
 export default function Page() {
     const {user} = useAuth();
     const router = useRouter();
+
+    const {handleAddCustomJoke} = useCustomJokes();
 
     useEffect(() => {
         if (!user) {
@@ -24,8 +28,8 @@ export default function Page() {
     return (
         <>
             <ChucksAppBar/>
-            <Container maxWidth="xl">
                 <Typography variant="h1">Home</Typography>
+                <Container maxWidth="xl" sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <Box
                     sx={{
                         my: 4,
@@ -33,9 +37,22 @@ export default function Page() {
                         flexDirection: "column",
                         justifyContent: "center",
                         alignItems: "center",
+                        width: '100%', // Add this line
                     }}
                 >
                     <RandomJoke/>
+                </Box>
+                <Box
+                    sx={{
+                        my: 4,
+                        display: "block",
+                        flexDirection: "column",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        width: '40%', // Add this line
+                    }}
+                >
+                    <AddCustomJoke onJokeAdd={handleAddCustomJoke} />
                 </Box>
             </Container>
         </>

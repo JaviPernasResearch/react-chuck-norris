@@ -1,21 +1,43 @@
-import { Box, Tab, Tabs } from '@mui/material';
+import { Box, Container, Tab, Tabs, Typography } from '@mui/material';
 import { useState } from 'react';
+import { FavoriteJokesList } from '@/components/jokes/FavoriteJokesList';
+import { ColorTable } from '@/components/color/colorTable';
+import { CatPicTable } from '@/components/cats/CatPicTable';
+import { CustomJokesList } from '@/components/jokes/CustomJokesList';
 
-export const FavoritesNav = ({ onTabChange }: { onTabChange: (tab: 'jokes' | 'cats') => void }) => {
-    const [value, setValue] = useState<'jokes' | 'cats'>('jokes');
+type FavoriteTabType = 'favJokes' |'customJokes' | 'cats' | 'colors';
 
-    const handleChange = (event: React.SyntheticEvent, newValue: 'jokes' | 'cats') => {
-        setValue(newValue);
-        onTabChange(newValue);
-    };
+interface FavoritesNavProps {
+    activeTab: FavoriteTabType;
+    onTabChange: (event: React.SyntheticEvent, newValue: FavoriteTabType) => void;
+}
 
+export const FavoritesNav = ({ activeTab, onTabChange }: FavoritesNavProps) => {
+    
     return (
-        <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: 3 }}>
-            <Tabs value={value} onChange={handleChange}>
-                <Tab label="Favorite Jokes" value="jokes" />
-                <Tab label="Favorite Cats" value="cats" />
-            </Tabs>
-        </Box>
+        <Container maxWidth="xl" sx={{ py: 4 }}>
+                <Typography variant="h4" component="h1" gutterBottom>
+                    My Favorites
+                </Typography>
+                
+                <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: 3 }}>
+                    <Tabs 
+                        value={activeTab} 
+                        onChange={onTabChange}
+                        aria-label="favorites content tabs"
+                    >
+                        <Tab label="Favorite Jokes" value="favJokes" />
+                        <Tab label="Custom Jokes" value="customJokes" />
+                        <Tab label="Colors" value="colors" />
+                        <Tab label="Cat Pictures" value="cats" />
+                    </Tabs>
+                </Box>
+
+                {activeTab === 'favJokes' && <FavoriteJokesList />}
+                {activeTab === 'customJokes' && <CustomJokesList />}
+                {activeTab === 'cats' && <CatPicTable />}
+                {activeTab === 'colors' && <ColorTable />}
+        </Container>
         
     );
 };

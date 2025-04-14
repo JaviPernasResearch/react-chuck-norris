@@ -4,13 +4,13 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import {Box, Button, Paper, Skeleton, Typography, IconButton} from "@mui/material";
 import {useQuery} from "@tanstack/react-query";
 import {getRandomJoke} from "@/utils/jokesApi";
-import {ChuckNorrisJoke, FavoriteJoke} from "@/models/joke";
-import { useFavoriteJokesList } from "./useFavoriteJokes";
+import {FavoriteJoke} from "@/models/joke";
+import { useFavoriteJokes } from "./useFavoriteJokes";
 
 
 export const RandomJoke: React.FC<{ variant?: '404' }> = ({ variant }) => {
     
-    const {isFavorite, addFavorite, removeFavorite} = useFavoriteJokesList();
+    const {isFavorite, handleAddFavorite, handleRemoveFavorite} = useFavoriteJokes();
 
     const {isLoading, data, refetch} = useQuery({
         ...getRandomJoke(),
@@ -33,9 +33,9 @@ export const RandomJoke: React.FC<{ variant?: '404' }> = ({ variant }) => {
         };
         
         if (isFavorite(joke.id)) {
-            removeFavorite(joke.id);
+            handleRemoveFavorite(joke.id);
         } else {
-            addFavorite(joke);
+            handleAddFavorite(joke);
         }
     };
 
