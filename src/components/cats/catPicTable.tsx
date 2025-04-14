@@ -2,7 +2,7 @@
 
 import DeleteIcon from "@mui/icons-material/Delete";
 import {Box, IconButton} from "@mui/material";
-import {CreateFavoriteCatPic, FavoriteCatPic } from "@/models/catPic";
+import {FavoriteCatPic } from "@/models/catPic";
 import {useMemo} from "react";
 import {MaterialReactTable, MRT_ColumnDef} from "material-react-table";
 import {useFavoriteCats} from "@/components/cats/useFavoriteCats";

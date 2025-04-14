@@ -2,8 +2,8 @@
 
 import {Box, Container, Typography} from "@mui/material";
 import ChucksAppBar from "@/components/default/Navbar";
-import {RandomColorGenerator} from "@/components/color/randomColorGenerator";
-import {ColorTable} from "@/components/color/colorTable";
+import {RandomColorGenerator} from "@/components/color/RandomColorGenerator";
+import {ColorTable} from "@/components/color/ColorTable";
 
 export default function Colors() {
     return (

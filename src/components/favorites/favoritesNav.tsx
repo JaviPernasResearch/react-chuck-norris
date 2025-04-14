@@ -1,7 +1,6 @@
 import { Box, Container, Tab, Tabs, Typography } from '@mui/material';
-import { useState } from 'react';
 import { FavoriteJokesList } from '@/components/jokes/FavoriteJokesList';
-import { ColorTable } from '@/components/color/colorTable';
+import { ColorTable } from '@/components/color/ColorTable';
 import { CatPicTable } from '@/components/cats/CatPicTable';
 import { CustomJokesList } from '@/components/jokes/CustomJokesList';
 
