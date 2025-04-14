@@ -5,8 +5,12 @@ import { Box, Container, Typography } from '@mui/material'
 import React from 'react'
 import {CatPicTable} from '@/components/cats/CatPicTable'
 import {RandomCatPicGenerator} from "@/components/cats/RandomCatPicGenerator";
+import { useAuthRedirect } from '@/components/auth/useAuthRedirect'
 
 export default function CatsPage() {
+
+const { user } = useAuthRedirect();
+
   return (
     <>
         <ChucksAppBar/>

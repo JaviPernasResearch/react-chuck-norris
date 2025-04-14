@@ -4,8 +4,12 @@ import {Box, Container, Typography} from "@mui/material";
 import ChucksAppBar from "@/components/default/Navbar";
 import {RandomColorGenerator} from "@/components/color/RandomColorGenerator";
 import {ColorTable} from "@/components/color/ColorTable";
+import { useAuthRedirect } from "@/components/auth/useAuthRedirect";
 
 export default function Colors() {
+
+    const { user } = useAuthRedirect();
+
     return (
         <>
             <ChucksAppBar/>
