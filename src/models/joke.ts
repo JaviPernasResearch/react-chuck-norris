@@ -9,6 +9,13 @@ export interface ChuckNorrisJoke extends Joke {
     url: string;
 }
 
-export type FavoriteJoke = Joke;
+export interface FavoriteJoke extends Joke{
+    userId: string;
+    createdAt: string;
+    dataId: string;
+}
+
+// Helper type for creating new favorites
+export type CreateFavoriteJoke = Omit<FavoriteJoke, 'userId' | 'createdAt' | 'dataId'>
 
 //Custom Jokes and FavoriteJokes by default

@@ -68,7 +68,7 @@ export const FavoriteJokesList = () => {
                                         )}
                                         <IconButton
                                             edge="end"
-                                            onClick={() => handleRemoveFavorite(joke.id)}
+                                            onClick={() => handleRemoveFavorite(joke.dataId)}
                                             aria-label="delete"
                                         >
                                             <DeleteIcon />

@@ -57,7 +57,7 @@ export const CustomJokesList = () => {
                                 <>
                                     <IconButton 
                                         edge="end" 
-                                        onClick={() => handleRemoveFavorite(joke.id)}
+                                        onClick={() => handleRemoveFavorite(joke.dataId)}
                                         aria-label="delete"
                                     >
                                         <DeleteIcon />

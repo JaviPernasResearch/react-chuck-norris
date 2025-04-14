@@ -2,18 +2,18 @@
 
 import DeleteIcon from "@mui/icons-material/Delete";
 import {Box, IconButton} from "@mui/material";
-import { CatPic } from "@/models/catPic";
+import {CreateFavoriteCatPic, FavoriteCatPic } from "@/models/catPic";
 import {useMemo} from "react";
 import {MaterialReactTable, MRT_ColumnDef} from "material-react-table";
-import {useCats} from "@/components/cats/useCats";
+import {useFavoriteCats} from "@/components/cats/useFavoriteCats";
 
 
 
 export const CatPicTable: React.FC = () => {
 
-    const {catPicsList, removeCatPic} = useCats();
+    const {catPicsList, handleRemoveCatPic} = useFavoriteCats();
 
-    const columns = useMemo<MRT_ColumnDef<CatPic>[]>(
+    const columns = useMemo<MRT_ColumnDef<FavoriteCatPic>[]>(
         () => [
             {
                 id: "Picture",
@@ -34,12 +34,12 @@ export const CatPicTable: React.FC = () => {
                 ),
             },
             {
-                accessorKey: "id",
+                accessorKey: "dataId",
                 header: "Remove",
                 size: 50,
                 Cell: ({row}) => (
                     <IconButton
-                        onClick={() => removeCatPic(row.original.id)}
+                        onClick={() => handleRemoveCatPic(row.original.dataId)}
                     >
                         <DeleteIcon/>
                     </IconButton>

@@ -1,4 +1,4 @@
 import {atom} from "jotai";
-import {RandomColor} from "@/models/randomColor";
+import {CreateFavoriteColor, FavoriteColor} from "@/models/randomColor";
 
-export const colorsState = atom<RandomColor[]>([]);
+export const colorsState = atom<FavoriteColor[]>([]);

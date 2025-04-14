@@ -1,18 +1,17 @@
 import { db } from "@/firebase/firebase";
 import { collection, addDoc, getDocs, deleteDoc, doc, query, where } from "firebase/firestore";
-
-interface FavoriteJoke {
-    id: string;
-    value: string;
-    userId: string;
-    isCustom?: boolean;
-}
+import { CreateFavoriteJoke, FavoriteJoke } from "@/models/joke";
 
 export const favoriteJokesService = {
-    async addFavoriteJoke(joke: Omit<FavoriteJoke, 'id'>) {
+    async addFavoriteJoke(joke: CreateFavoriteJoke, userId: string) {
         try {
-            const docRef = await addDoc(collection(db, "favoriteJokes"), joke);
-            return { ...joke, id: docRef.id };
+            const jokeWithMeta = {
+                ...joke,
+                userId,
+                createdAt: new Date().toISOString()
+            };
+            const docRef = await addDoc(collection(db, "favoriteJokes"), jokeWithMeta);
+            return { ...jokeWithMeta, dataId: docRef.id } as FavoriteJoke;
         } catch (error) {
             console.error("Error adding favorite joke:", error);
             throw error;
@@ -27,7 +26,7 @@ export const favoriteJokesService = {
             );
             const querySnapshot = await getDocs(q);
             return querySnapshot.docs.map(doc => ({
-                id: doc.id,
+                dataId: doc.id,
                 ...doc.data()
             } as FavoriteJoke));
         } catch (error) {
@@ -36,9 +35,9 @@ export const favoriteJokesService = {
         }
     },
 
-    async removeFavoriteJoke(jokeId: string) {
+    async removeFavoriteJoke(dataId: string) {
         try {
-            await deleteDoc(doc(db, "favoriteJokes", jokeId));
+            await deleteDoc(doc(db, "favoriteJokes", dataId));
         } catch (error) {
             console.error("Error removing favorite joke:", error);
             throw error;

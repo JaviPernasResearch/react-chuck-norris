@@ -1,5 +1,5 @@
 import { favoriteJokesState } from "@/state/favoriteJokesState";
-import { FavoriteJoke } from "@/models/joke";
+import { CreateFavoriteJoke, FavoriteJoke } from "@/models/joke";
 import { useAtom } from "jotai";
 import { useAuth } from "@/context/AuthContext";
 import { favoriteJokesService } from "@/services/favoriteJokesService";
@@ -23,9 +23,9 @@ export const useFavoriteJokes = () => {
     };
 
     loadFavoriteJokes();
-  }, [user]);
+  }, [user, setFavoriteJokesList]);
 
-  const handleAddFavorite = async (favoriteJoke: FavoriteJoke) => {
+  const handleAddFavorite = async (joke: CreateFavoriteJoke) => {
     if (!user) {
       
       toast.error("Please login to add favorites");
@@ -34,10 +34,7 @@ export const useFavoriteJokes = () => {
 
     try {
       // Update Firestore
-      await favoriteJokesService.addFavoriteJoke({
-        ...favoriteJoke,
-        userId: user.uid
-      });
+      const favoriteJoke = await favoriteJokesService.addFavoriteJoke(joke, user.uid);
       // Update local state
       setFavoriteJokesList((prev) => [...prev, favoriteJoke]);
       toast.success("Joke added to favorites");
@@ -47,12 +44,12 @@ export const useFavoriteJokes = () => {
     }
   };
 
-  const handleRemoveFavorite = async (id: string) => {
+  const handleRemoveFavorite = async (dataId: string) => {
     try {
       // Update Firestore
-      await favoriteJokesService.removeFavoriteJoke(id);
+      await favoriteJokesService.removeFavoriteJoke(dataId);
       // Update local state
-      const updatedJokes = favoriteJokesList.filter((joke) => joke.id !== id);
+      const updatedJokes = favoriteJokesList.filter((joke) => joke.dataId !== dataId);
       setFavoriteJokesList(updatedJokes);
       toast.success("Joke removed from favorites");
     } catch (error) {

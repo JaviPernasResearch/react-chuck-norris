@@ -3,14 +3,14 @@
 import AutorenewIcon from "@mui/icons-material/Autorenew";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import {Box, Button, CircularProgress, Paper, Typography} from "@mui/material";
-import { useCats } from "./useCats";
+import { useFavoriteCats } from "./useFavoriteCats";
 import { getRandomCatPic } from "@/utils/catPicsApi";
 import { useQuery } from "@tanstack/react-query";
 
 
 export const RandomCatPicGenerator = () => {
 
-    const {addCatPic} = useCats();
+    const {handleAddCatPic} = useFavoriteCats();
 
     const { data, isLoading, refetch } = useQuery({
         ...getRandomCatPic(),
@@ -24,7 +24,7 @@ export const RandomCatPicGenerator = () => {
 
     const handleAddToFavorites = () => {
         if (data?.data) {
-            addCatPic(data.data);
+            handleAddCatPic(data.data);
         }
     };
    
