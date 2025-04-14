@@ -9,8 +9,6 @@ export interface ChuckNorrisJoke extends Joke {
     url: string;
 }
 
-export interface CustomJoke extends Joke {
-    isCustom: true;
-}
+export type FavoriteJoke = Joke;
 
-export type FavoriteJoke = Joke | CustomJoke;
+//Custom Jokes and FavoriteJokes by default.

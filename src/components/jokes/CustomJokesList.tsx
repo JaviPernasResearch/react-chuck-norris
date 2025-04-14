@@ -3,12 +3,10 @@
 import { Typography, List, ListItem, IconButton, Box } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { AddCustomJoke } from './AddCustomJoke';
-import { useCustomJokes } from './useCustomJokes';
 import { useFavoriteJokes } from './useFavoriteJokes';
 
 export const CustomJokesList = () => {
-    const {favoriteJokesList, handleRemoveFavorite} = useFavoriteJokes();
-    const {handleAddCustomJoke} = useCustomJokes();
+    const {favoriteJokesList, handleAddFavorite, handleRemoveFavorite} = useFavoriteJokes();
 
     const customJokesList = favoriteJokesList.filter(joke => 'isCustom' in joke);
 
@@ -22,7 +20,7 @@ export const CustomJokesList = () => {
 
     return (
         <>
-            <AddCustomJoke onJokeAdd={handleAddCustomJoke} />
+            <AddCustomJoke onJokeAdd={handleAddFavorite} />
             
             {customJokesList.length === 0 ? (
                 <Typography color="text.secondary">

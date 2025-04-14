@@ -9,14 +9,14 @@ import {Typography} from "@mui/material";
 import {Box} from "@mui/system";
 import {RandomJoke} from "@/components/jokes/RandomJokeGenerator";
 import { AddCustomJoke } from '@/components/jokes/AddCustomJoke';
-import { useCustomJokes } from '@/components/jokes/useCustomJokes';
+import { useFavoriteJokes } from '@/components/jokes/useFavoriteJokes';
 
 
 export default function Page() {
     const {user} = useAuth();
     const router = useRouter();
 
-    const {handleAddCustomJoke} = useCustomJokes();
+    const {handleAddFavorite} = useFavoriteJokes();
 
     useEffect(() => {
         if (!user) {
@@ -52,7 +52,7 @@ export default function Page() {
                         width: '40%', // Add this line
                     }}
                 >
-                    <AddCustomJoke onJokeAdd={handleAddCustomJoke} />
+                    <AddCustomJoke onJokeAdd={handleAddFavorite} />
                 </Box>
             </Container>
         </>

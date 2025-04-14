@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { TextField, Button, Box } from '@mui/material';
-import { CustomJoke } from '@/models/joke';
 import { v4 as uuidv4 } from 'uuid';
+import { FavoriteJoke } from '@/models/joke';
 
 interface AddCustomJokeProps {
-    onJokeAdd: (joke: CustomJoke) => void;
+    onJokeAdd: (joke: FavoriteJoke) => void;
 }
 
 export const AddCustomJoke: React.FC<AddCustomJokeProps> = ({ onJokeAdd }) => {
@@ -14,11 +14,10 @@ export const AddCustomJoke: React.FC<AddCustomJokeProps> = ({ onJokeAdd }) => {
         e.preventDefault();
         if (!jokeText.trim()) return;
 
-        const newJoke: CustomJoke = {
+        const newJoke: FavoriteJoke = {
             id: uuidv4(),
             value: jokeText.trim(),
             isCustom: true,
-            createdAt: new Date().toISOString()
         };
 
         onJokeAdd(newJoke);

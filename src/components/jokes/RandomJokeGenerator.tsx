@@ -29,7 +29,8 @@ export const RandomJoke: React.FC<{ variant?: '404' }> = ({ variant }) => {
         
         const joke: FavoriteJoke = {
             id: data.data.id,
-            value: data.data.value
+            value: data.data.value,
+            isCustom : false
         };
         
         if (isFavorite(joke.id)) {

@@ -5,13 +5,11 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions';
 import SentimentSatisfiedIcon from '@mui/icons-material/SentimentSatisfied';
 import { AddCustomJoke } from './AddCustomJoke';
-import { useCustomJokes } from './useCustomJokes';
 import { useFavoriteJokes } from './useFavoriteJokes';
 
 export const FavoriteJokesList = () => {
     
-    const {favoriteJokesList, handleRemoveFavorite} = useFavoriteJokes();
-    const {handleAddCustomJoke} = useCustomJokes();
+    const {favoriteJokesList, handleAddFavorite,handleRemoveFavorite} = useFavoriteJokes();
 
     if (favoriteJokesList.length === 0) {
         return (
@@ -23,7 +21,7 @@ export const FavoriteJokesList = () => {
 
     return (
         <>
-            <AddCustomJoke onJokeAdd={handleAddCustomJoke} />
+            <AddCustomJoke onJokeAdd={handleAddFavorite} />
             
             {favoriteJokesList.length === 0 ? (
                 <Typography color="text.secondary">
