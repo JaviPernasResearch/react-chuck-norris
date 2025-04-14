@@ -11,4 +11,4 @@ export interface ChuckNorrisJoke extends Joke {
 
 export type FavoriteJoke = Joke;
 
-//Custom Jokes and FavoriteJokes by default.
+//Custom Jokes and FavoriteJokes by default

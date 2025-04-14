@@ -11,13 +11,6 @@ export const FavoriteJokesList = () => {
     
     const {favoriteJokesList, handleAddFavorite,handleRemoveFavorite} = useFavoriteJokes();
 
-    if (favoriteJokesList.length === 0) {
-        return (
-            <Typography color="text.secondary">
-                No favorite jokes yet. Add some from the home page!
-            </Typography>
-        );
-    }
 
     return (
         <>
@@ -64,7 +57,7 @@ export const FavoriteJokesList = () => {
                                 }}
                                 secondaryAction={
                                     <>
-                                        {'isCustom' in joke ? (
+                                        {joke.isCustom === true ? (
                                             <EmojiEmotionsIcon
                                                 sx={{ mr: 1, color: 'primary.main' }}
                                             />

@@ -8,15 +8,7 @@ import { useFavoriteJokes } from './useFavoriteJokes';
 export const CustomJokesList = () => {
     const {favoriteJokesList, handleAddFavorite, handleRemoveFavorite} = useFavoriteJokes();
 
-    const customJokesList = favoriteJokesList.filter(joke => 'isCustom' in joke);
-
-    if (customJokesList.length === 0) {
-        return (
-            <Typography color="text.secondary">
-                "No custom jokes yet. Create some using the form!"
-            </Typography>
-        );
-    }
+    const customJokesList = favoriteJokesList.filter(joke => joke.isCustom === true);
 
     return (
         <>
