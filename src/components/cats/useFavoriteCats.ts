@@ -1,4 +1,4 @@
-import { CatPic, CreateFavoriteCatPic } from '@/models/catPic';
+import { CreateFavoriteCatPic } from '@/models/catPic';
 import { useAtom } from 'jotai';
 import {catPicsState} from '@/state/catPicsState';
 import { useAuth } from '@/context/AuthContext';
@@ -18,6 +18,7 @@ export const useFavoriteCats = () => {
         const cats = await favoriteCatsService.getFavoriteCats(user.uid);
         setCatPicsList(cats);
       } catch (error) {
+        console.error('Error details:', error);
         toast.error("Error loading favorite cats");
       }
     };
@@ -43,8 +44,8 @@ export const useFavoriteCats = () => {
         setCatPicsList((prev) => [...prev, savedCatPic]);
         toast.success("Cat added to favorites");
       } catch (error) {
-        console.error('Error adding cat:', error);
-        toast.error("Error adding cat to favorites");
+        console.error('Error details:', error);
+        toast.error("Error removing cat from favorites");
       }
     }
   };
@@ -59,8 +60,8 @@ export const useFavoriteCats = () => {
       setCatPicsList(prev => prev.filter(catPic => catPic.dataId !== dataId));
       toast.success("Cat removed from favorites");
     } catch (error) {
-      toast.error("Error removing cat from favorites");
-    }
+      console.error('Error details:', error);
+      toast.error("Error removing cat from favorite");    }
   };
 
 

@@ -4,7 +4,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import {Box, IconButton} from "@mui/material";
 import {MaterialReactTable, MRT_ColumnDef} from "material-react-table";
 import {useMemo} from "react";
-import {FavoriteColor, RandomColor} from "@/models/randomColor";
+import {FavoriteColor} from "@/models/randomColor";
 import { useFavoriteColors } from "./useFavoriteColors";
 
 

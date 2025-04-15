@@ -4,8 +4,6 @@ import AutorenewIcon from "@mui/icons-material/Autorenew";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import {Box, Button, Paper, Typography} from "@mui/material";
 import {useState} from "react";
-import {useAtom} from "jotai";
-import {colorsState} from "@/state/colorsState";
 import { RandomColor } from "@/models/randomColor";
 import { v4 as uuidv4 } from 'uuid';
 import { useFavoriteColors } from "./useFavoriteColors";

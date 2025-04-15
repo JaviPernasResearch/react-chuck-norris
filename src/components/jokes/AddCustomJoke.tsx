@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { TextField, Button, Box } from '@mui/material';
 import { v4 as uuidv4 } from 'uuid';
-import { CreateFavoriteJoke, FavoriteJoke } from '@/models/joke';
+import { CreateFavoriteJoke } from '@/models/joke';
 
 interface AddCustomJokeProps {
     onJokeAdd: (joke: CreateFavoriteJoke) => void;

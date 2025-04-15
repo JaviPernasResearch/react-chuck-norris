@@ -16,7 +16,7 @@ export const CustomJokesList = () => {
             
             {customJokesList.length === 0 ? (
                 <Typography color="text.secondary">
-                    "No custom jokes yet. Create some using the form!"
+                    No custom jokes yet. Create some using the form!
                 </Typography>
             ) : (
             <Box

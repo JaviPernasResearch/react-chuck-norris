@@ -9,7 +9,7 @@ type FavoriteTabType = 'favJokes' |'customJokes' | 'cats' | 'colors';
 
 export default function FavoritesPage() {
 
-    const { user } = useAuthRedirect();
+    useAuthRedirect();
 
     const [activeTab, setActiveTab] = useState<FavoriteTabType>('favJokes');
 

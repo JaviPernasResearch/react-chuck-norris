@@ -1,0 +1,25 @@
+services:             # List of your containers/services
+  client-dev:               # Name of your service
+    build:           # Build configuration
+      context: .     # Use current directory
+      dockerfile: Dockerfile.dev    # Which Dockerfile to use
+    ports:           # Port mapping
+      - "3000:3000"  # Host port : Container port
+    volumes:         # File sharing between your PC and container
+      - .:/app      # Share current directory with /app in container
+      - /app/node_modules   # Keep node_modules separate
+    environment:     # Environment variables
+      - .env.development  # Load environment variables from .env.test file
+    # command: npm run dev   # Command to run (fixed the incomplete command)
+  client-prod:               # Name of your service
+    build:           # Build configuration
+      context: .     # Use current directory
+      dockerfile: Dockerfile.prod    # Which Dockerfile to use
+    ports:           # Port mapping
+      - "4000:3000"  # Host port : Container port
+    volumes:         # File sharing between your PC and container
+      - .:/app      # Share current directory with /app in container
+      - /app/node_modules   # Keep node_modules separate
+    environment:     # Environment variables
+      - .env.production  # Load environment variables from .env.test file
+    # command: npm run   # Command to run (fixed the incomplete command)

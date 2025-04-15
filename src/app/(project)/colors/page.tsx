@@ -8,7 +8,7 @@ import { useAuthRedirect } from "@/components/auth/useAuthRedirect";
 
 export default function Colors() {
 
-    const { user } = useAuthRedirect();
+    useAuthRedirect();
 
     return (
         <>

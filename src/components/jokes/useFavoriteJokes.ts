@@ -1,5 +1,5 @@
 import { favoriteJokesState } from "@/state/favoriteJokesState";
-import { CreateFavoriteJoke, FavoriteJoke } from "@/models/joke";
+import { CreateFavoriteJoke } from "@/models/joke";
 import { useAtom } from "jotai";
 import { useAuth } from "@/context/AuthContext";
 import { favoriteJokesService } from "@/services/favoriteJokesService";
@@ -18,6 +18,7 @@ export const useFavoriteJokes = () => {
         const jokes = await favoriteJokesService.getFavoriteJokes(user.uid);
         setFavoriteJokesList(jokes);
       } catch (error) {
+        console.error('Error details:', error);
         toast.error("Error loading favorite jokes");
       }
     };
@@ -52,7 +53,8 @@ export const useFavoriteJokes = () => {
       const updatedJokes = favoriteJokesList.filter((joke) => joke.dataId !== dataId);
       setFavoriteJokesList(updatedJokes);
       toast.success("Joke removed from favorites");
-    } catch (error) {
+    } catch (error) {;
+      console.error('Error details:', error);
       toast.error("Error removing from favorites");
     }
   };

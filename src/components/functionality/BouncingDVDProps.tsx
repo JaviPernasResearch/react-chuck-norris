@@ -31,7 +31,7 @@ export const BouncingDVD = ({ imageUrl = "/chuck.png" }: BouncingDVDProps) => {
             const newCount = prev.corner === corner ? prev.count + 1 : 1;
             setTimeout(() => setCornerClicks({ count: 0, corner: "" }), 2000);
             
-            if (newCount === 3) {
+            if (cornerClicks.count === 3) {
                 // Calculate explosion position based on corner
                 const explosionPos = {
                 topLeft: { x: 0, y: 0 },

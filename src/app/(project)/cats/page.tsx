@@ -9,9 +9,9 @@ import { useAuthRedirect } from '@/components/auth/useAuthRedirect'
 
 export default function CatsPage() {
 
-const { user } = useAuthRedirect();
+    useAuthRedirect();
 
-  return (
+    return (
     <>
         <ChucksAppBar/>
             <Box

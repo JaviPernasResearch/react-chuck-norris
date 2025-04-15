@@ -28,7 +28,7 @@ export default function NotFound() {
             Page Not Found
         </Typography>
         <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
-            Even Chuck Norris couldn't find the page you're looking for.
+            Even Chuck Norris couldn&apos;t find the page you&apos;re looking for.
         </Typography>
         
         <RandomJoke variant="404" />

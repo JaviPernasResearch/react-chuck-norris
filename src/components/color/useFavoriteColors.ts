@@ -17,6 +17,7 @@ export const useFavoriteColors = () => {
         const colors = await favoriteColorsService.getFavoriteColors(user.uid);
         setColorsList(colors);
       } catch (error) {
+        console.error('Error details:', error);
         toast.error("Error loading favorite colors");
       }
     };
@@ -42,6 +43,7 @@ export const useFavoriteColors = () => {
         setColorsList((prev) => [...prev, savedColor]);
         toast.success("Color added to favorites");
       } catch (error) {
+        console.error('Error details:', error);
         toast.error("Error adding color to favorites");
       }
     }
@@ -57,6 +59,7 @@ export const useFavoriteColors = () => {
       setColorsList(prev => prev.filter(color => color.dataId !== dataId));
       toast.success("Color removed from favorites");
     } catch (error) {
+      console.error('Error details:', error);
       toast.error("Error removing color from favorites");
     }
   };
