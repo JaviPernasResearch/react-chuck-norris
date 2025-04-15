@@ -7,8 +7,6 @@ import {useMemo} from "react";
 import {MaterialReactTable, MRT_ColumnDef} from "material-react-table";
 import {useFavoriteCats} from "@/components/cats/useFavoriteCats";
 
-
-
 export const CatPicTable: React.FC = () => {
 
     const {catPicsList, handleRemoveCatPic} = useFavoriteCats();
