@@ -18,12 +18,11 @@
     "react",              // React rules
     "react-hooks"         // React Hooks rules
   ],
-  "parser": "@typescript-eslint/parser",
-  "parserOptions": {
-    "ecmaVersion": 2022,
-    "sourceType": "module",
-    "ecmaFeatures": {
-      "jsx": true
-    }
+"parser": "@typescript-eslint/parser", // Uses TypeScript parser
+"parserOptions": {
+  "ecmaVersion": 2022, // Uses modern JavaScript features
+  "sourceType": "module", // Enables import/export
+  "ecmaFeatures": {
+    "jsx": true // Enables JSX parsing
   }
 }
