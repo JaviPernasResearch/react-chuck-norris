@@ -3,8 +3,9 @@ import { FavoriteJokesList } from '@/components/jokes/FavoriteJokesList';
 import { ColorTable } from '@/components/color/ColorTable';
 import { CatPicTable } from '@/components/cats/CatPicTable';
 import { CustomJokesList } from '@/components/jokes/CustomJokesList';
+import { ChuckNorrisGifsTable } from '../gifs/ChuckNorrisGifsTable';
 
-type FavoriteTabType = 'favJokes' |'customJokes' | 'cats' | 'colors';
+export type FavoriteTabType = 'favJokes' |'customJokes' | 'cats' | 'colors' | 'gifs';
 
 interface FavoritesNavProps {
     activeTab: FavoriteTabType;
@@ -29,6 +30,7 @@ export const FavoritesNav = ({ activeTab, onTabChange }: FavoritesNavProps) => {
                         <Tab label="Custom Jokes" value="customJokes" />
                         <Tab label="Colors" value="colors" />
                         <Tab label="Cat Pictures" value="cats" />
+                        <Tab label="Chuck Norris Gifs" value="gifs" />
                     </Tabs>
                 </Box>
 
@@ -36,6 +38,7 @@ export const FavoritesNav = ({ activeTab, onTabChange }: FavoritesNavProps) => {
                 {activeTab === 'customJokes' && <CustomJokesList />}
                 {activeTab === 'cats' && <CatPicTable />}
                 {activeTab === 'colors' && <ColorTable />}
+                {activeTab === 'gifs' && <ChuckNorrisGifsTable />}
         </Container>
         
     );

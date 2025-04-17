@@ -26,6 +26,7 @@ const pages: Page[] = [
     {title: "Home", route: "/home"},
     {title: "Colors", route: "/colors"},
     {title: "Cats", route: "/cats"},
+    {title: "Chuck Norris Gifs", route: "/gifs"},
     {title: "Favorites", route: "/favorites"},
 ];
 
