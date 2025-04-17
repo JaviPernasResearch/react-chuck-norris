@@ -44,7 +44,7 @@ export const CatPicTable: React.FC = () => {
                 ),
             },
         ],
-        []
+        [handleRemoveCatPic]
     );
 
     return (

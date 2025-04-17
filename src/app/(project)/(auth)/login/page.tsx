@@ -17,7 +17,7 @@ export default function LoginPage() {
         if (user) {
             router.push("/");
         }
-    }, [user]);
+    }, [user, router]);
 
     const onLogin = async (data: LoginFormData, callback: () => void) => {
         login(data.email, data.password);

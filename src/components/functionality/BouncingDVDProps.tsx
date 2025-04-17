@@ -2,6 +2,7 @@
 
 import { Box } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
+import Image from 'next/image';
 
 interface BouncingDVDProps {
   imageUrl?: string;
@@ -146,7 +147,7 @@ export const BouncingDVD = ({ imageUrl = "/chuck.png" }: BouncingDVDProps) => {
               }}
             />
           ))}
-          
+
           {/* Bouncing DVD logo */}
           <Box
             ref={boxRef}
@@ -156,36 +157,46 @@ export const BouncingDVD = ({ imageUrl = "/chuck.png" }: BouncingDVDProps) => {
               height: "100px",
               zIndex: -1,
               opacity: 0.7,
-              img: {
-                width: "100%",
-                height: "100%",
-                objectFit: "contain",
+              '& > span': { // Update selector for Next.js Image wrapper
+                width: "100% !important",
+                height: "100% !important",
               },
             }}
           >
-            <img src={imageUrl} alt="Bouncing DVD" />
+            <Image
+              src={imageUrl}
+              alt="Bouncing DVD"
+              fill
+              style={{
+                objectFit: 'contain',
+              }}
+              priority={false}
+            />
           </Box>
-    
+
           {/* Explosion effect */}
           {explosion.show && (
             <Box
               sx={{
-                position: "fixed",
-                left: explosion.x,
-                top: explosion.y,
-                width: "150px",
-                height: "150px",
+                position: 'fixed',
+                left: explosion.x - 50,
+                top: explosion.y - 50,
+                width: 100,
+                height: 100,
                 zIndex: 1000,
-                img: {
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "contain",
-                },
               }}
             >
-              <img src="/funnyExplosion.gif" alt="Explosion" />
+              <Image
+                src="/funnyExplosion.gif"
+                alt="Explosion"
+                fill
+                style={{
+                  objectFit: 'contain'
+                }}
+                priority={false}
+              />
             </Box>
           )}
         </>
-    );
+      );
 };

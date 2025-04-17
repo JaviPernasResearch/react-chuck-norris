@@ -51,7 +51,7 @@ export const ColorTable: React.FC = () => {
                 ),
             },
         ],
-        []
+        [handleRemoveColor]
     );
 
     return <MaterialReactTable columns={columns} data={colorsList}/>;

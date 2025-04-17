@@ -1,3 +1,29 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": [
+    "next/core-web-vitals",        // Next.js performance rules
+    "eslint:recommended",          // Basic JavaScript rules
+    "plugin:@typescript-eslint/recommended",  // TypeScript specific rules
+    "plugin:react/recommended",    // React best practices
+    "plugin:react-hooks/recommended"  // React Hooks rules
+  ],
+"rules": {
+    "no-console": ["warn", { "allow": ["warn", "error"] }],  // Warns on console.log, allows console.warn/error
+    "no-unused-vars": "warn",                                 // Warns about unused variables
+    "react/react-in-jsx-scope": "off",                       // Disables React import requirement
+    "@typescript-eslint/explicit-function-return-type": "off", // No mandatory return types
+    "@typescript-eslint/no-explicit-any": "warn"              // Warns when using 'any' type
+  },
+"plugins": [
+    "@typescript-eslint",  // TypeScript support
+    "react",              // React rules
+    "react-hooks"         // React Hooks rules
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 2022,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  }
 }

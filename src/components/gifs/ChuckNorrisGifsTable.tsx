@@ -44,7 +44,7 @@ export const ChuckNorrisGifsTable: React.FC = () => {
                 ),
             },
         ],
-        []
+        [handleRemoveChuckNorrisGif]
     );
 
     return (
