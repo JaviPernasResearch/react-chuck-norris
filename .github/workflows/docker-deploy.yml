@@ -33,7 +33,7 @@ jobs:
           
           # Build the image with detailed output
           Write-Host "Building Docker image..."
-          docker build --no-cache --progress=plain -t react-chuck-norris -f Dockerfile.prod . 
+          docker build --no-cache --progress=plain --build.arg ENV_FILE=.env.production -t react-chuck-norris -f Dockerfile.prod . 
           
           if ($LASTEXITCODE -ne 0) {
               Write-Error "Docker build failed!"
