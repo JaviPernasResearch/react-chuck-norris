@@ -9,6 +9,7 @@ COPY tsconfig.json ./
 COPY next.config.ts ./
 COPY src ./src
 COPY .env.production .env.production
+COPY public ./public
 
 # Install dependencies
 RUN npm ci
