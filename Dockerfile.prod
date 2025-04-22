@@ -41,6 +41,7 @@ EXPOSE 3000
 
 CMD ["npm", "start"]
 
+
 # Start in development mode: However, this is not recommended for production containers. Development mode should typically be run locally, not in containers.
 #CMD ["npm", "run", "dev"]
 
