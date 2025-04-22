@@ -2,9 +2,8 @@
 
 import ChucksAppBar from "@/components/default/Navbar";
 import { useState } from 'react';
-import { FavoritesNav } from '@/components/favorites/FavoritesNav';
 import { useAuthRedirect } from "@/components/auth/useAuthRedirect";
-import { FavoriteTabType } from "@/components/favorites/FavoritesNav";
+import { FavoritesNav, FavoriteTabType } from "@/components/favorites/FavoritesNav";
 
 export default function FavoritesPage() {
 
