@@ -13,9 +13,6 @@ COPY .env.production ./
 # Install dependencies
 RUN npm ci
 
-# Copy source code
-COPY . .
-
 # Set environment variables
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV NODE_ENV=production
@@ -38,6 +35,7 @@ COPY --from=builder /app/public ./public
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/src ./src
+COPY --from=builder /app/.env.production ./.env.production
 
 EXPOSE 3000
 
