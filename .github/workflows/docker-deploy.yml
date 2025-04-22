@@ -31,23 +31,25 @@ jobs:
               docker rmi react-chuck-norris
           }
           
-          # Build the image with detailed output
+          # Build the image with environment file
           Write-Host "Building Docker image..."
-          docker build --no-cache --progress=plain --build.arg ENV_FILE=.env.production -t react-chuck-norris -f Dockerfile.prod . 
+          docker build --no-cache --progress=plain `
+            --build-arg ENV_FILE=.env.production `
+            -t react-chuck-norris -f Dockerfile.prod . 
           
           if ($LASTEXITCODE -ne 0) {
               Write-Error "Docker build failed!"
               exit 1
           }
           
-          # Run new container
+          # Run new container with env file
           Write-Host "Starting new container..."
-          docker run -d --name react-chuck-norris -p 3000:3000 react-chuck-norris:latest
-          
-          # Wait for container to start
-          Start-Sleep -Seconds 5
+          docker run -d --name react-chuck-norris `
+            --env-file .env.production `
+            -p 3000:3000 react-chuck-norris:latest
           
           # Check container status
+          Start-Sleep -Seconds 5
           $status = docker ps --filter "name=react-chuck-norris" --format "{{.Status}}"
           if ($status) {
               Write-Host "Container is running: $status"
